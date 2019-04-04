@@ -33,6 +33,7 @@
     display: inline-block;
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     position: fixed;
+    border-radius: 50%;
 }
 
 .card:hover {
@@ -43,6 +44,7 @@
     background-size: 100% 100%;
     display: inline-block;
     z-index: 15;
+    border-radius: 0;
 }
 
 .hp {
