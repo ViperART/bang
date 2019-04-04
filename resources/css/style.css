@@ -1,0 +1,54 @@
+.opacity {
+    width: 100vw;
+    height: 100vh;
+    background: hsla(149, 0%, 14%, 0.4);
+    z-index: 10;
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background: url('../images/background/table.jpg');
+    background-position: 0;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.player-pair {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 5rem 0 5rem;
+}
+
+.player {
+    margin: 0 0 15rem 0;
+    padding-top: 0.5rem;
+}
+
+.card {
+    width: 140px;
+    height: 140px;
+    background: url("../images/characters/cropped/pedro_cropped.jpg") no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    position: fixed;
+}
+
+.card:hover {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 208px;
+    height: 330px;
+    background: url("../images/characters/full/pedro_full.png") no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    z-index: 15;
+}
+
+.hp {
+    width: 24px;
+    height: 30px;
+    background: url("../images/misc/bullet.png") no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+}
