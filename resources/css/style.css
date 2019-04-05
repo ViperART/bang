@@ -1,8 +1,11 @@
+html {
+    overflow: hidden;
+}
+
 .opacity {
     width: 100vw;
     height: 100vh;
-    background: hsla(149, 0%, 14%, 0.4);
-    z-index: 10;
+    background: hsla(149, 0%, 14%, 0.5);
 }
 
 .background {
@@ -11,7 +14,6 @@
     background: url('../images/background/table.jpg');
     background-position: 0;
     background-repeat: no-repeat;
-    z-index: 1;
 }
 
 .player-pair {
@@ -21,11 +23,15 @@
 }
 
 .player {
-    margin: 0 0 15rem 0;
+    margin: 1rem 0 5rem 0;
     padding-top: 0.5rem;
 }
 
-.card {
+.moved {
+    padding: 0 15rem;
+}
+
+.portait {
     width: 140px;
     height: 140px;
     background: url("../images/characters/cropped/pedro_cropped.jpg") no-repeat;
@@ -34,9 +40,17 @@
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     position: fixed;
     border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.75);
+    border: 2px solid #68abf8;
 }
 
-.card:hover {
+.portait-right {
+    margin-left: 2rem;
+}
+
+.portait:hover {
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 208px;
     height: 330px;
@@ -45,7 +59,72 @@
     display: inline-block;
     z-index: 15;
     border-radius: 0;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-filter: drop-shadow(0px 0px 3px #000);
+    filter: drop-shadow(0px 0px 3px #000);
 }
+
+.player-active {
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(118, 232, 151, 0.75);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(118, 232, 151, 0.75);
+    box-shadow: 0px 0px 8px 0px rgba(118, 232, 151, 0.75);
+    border: 2px solid #76E897;
+}
+
+.buff-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.buff-wrap {
+    width: 29px;
+    height: 29px;
+    margin-bottom: 8px;
+}
+
+.right {
+    margin-left: 9rem;
+}
+
+.buff {
+    width: 29px;
+    height: 29px;
+    background: url("../images/cards/cropped/dynamite_cropped.jpg") no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    position: absolute;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);  
+    border-radius: 50%;
+    border: 1px solid #68abf8;
+    -webkit-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.75);
+}
+
+.buff:hover {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 208px;
+    height: 330px;
+    background: url("../images/cards/full/dynamite.png") no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    z-index: 15;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-filter: drop-shadow(0px 0px 3px #000);
+    filter: drop-shadow(0px 0px 3px #000);
+    border: none;
+}
+
+.hp-bar-right {
+    margin-left: 2rem;    
+}
+
 
 .hp {
     width: 24px;
@@ -53,4 +132,6 @@
     background: url("../images/misc/bullet.png") no-repeat;
     background-size: 100% 100%;
     display: inline-block;
+    -webkit-filter: drop-shadow(0px 0px 3px #000);
+    filter: drop-shadow(0px 0px 3px #000);
 }
