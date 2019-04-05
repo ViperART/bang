@@ -2,11 +2,15 @@ html {
     overflow: hidden;
 }
 
+/* BACKGROUND SHADOWING */
+
 .opacity {
     width: 100vw;
     height: 100vh;
     background: hsla(149, 0%, 14%, 0.5);
 }
+
+/* BACGROUND */
 
 .background {
     width: 100vw;
@@ -15,6 +19,8 @@ html {
     background-position: 0;
     background-repeat: no-repeat;
 }
+
+/* PLAYERS POSITIONING */
 
 .player-pair {
     display: flex;
@@ -31,9 +37,11 @@ html {
     padding: 0 15rem;
 }
 
+/* PLAYERS' PORTAITS SETUP */
+
 .portait {
-    width: 140px;
-    height: 140px;
+    width: 141px;
+    height: 141px;
     background: url("../images/characters/cropped/pedro_cropped.jpg") no-repeat;
     background-size: 100% 100%;
     display: inline-block;
@@ -47,7 +55,7 @@ html {
 }
 
 .portait-right {
-    margin-left: 2rem;
+    margin-left: 1.75rem;
 }
 
 .portait:hover {
@@ -65,7 +73,10 @@ html {
     box-shadow: none;
     -webkit-filter: drop-shadow(0px 0px 3px #000);
     filter: drop-shadow(0px 0px 3px #000);
+    cursor: pointer;
 }
+
+/* ACTIVE-PLAYER HIGHLIGHT */
 
 .player-active {
     -webkit-box-shadow: 0px 0px 8px 0px rgba(118, 232, 151, 0.75);
@@ -73,6 +84,8 @@ html {
     box-shadow: 0px 0px 8px 0px rgba(118, 232, 151, 0.75);
     border: 2px solid #76E897;
 }
+
+/* BUFFS SETUP */
 
 .buff-list {
     display: flex;
@@ -82,7 +95,6 @@ html {
 .buff-wrap {
     width: 29px;
     height: 29px;
-    margin-bottom: 8px;
 }
 
 .right {
@@ -90,12 +102,11 @@ html {
 }
 
 .buff {
-    width: 29px;
-    height: 29px;
+    width: 27px;
+    height: 27px;
     background: url("../images/cards/cropped/dynamite_cropped.jpg") no-repeat;
     background-size: 100% 100%;
-    display: inline-block;
-    position: absolute;
+    position: relative;
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);  
     border-radius: 50%;
     border: 1px solid #68abf8;
@@ -119,12 +130,69 @@ html {
     -webkit-filter: drop-shadow(0px 0px 3px #000);
     filter: drop-shadow(0px 0px 3px #000);
     border: none;
+    cursor: pointer;
+}
+
+/* BUFFS CIRCLE POSITIONING */
+
+.buff-1,
+.buff-5 {
+    right: 7px;
+}
+
+.buff-1,
+.buff-reverse-1 {
+    bottom: 12px;
+}
+
+.buff-2 {
+    bottom: 8px;
+    left: 12px;
+}
+
+.buff-3 {
+    left: 17px;
+}
+
+.buff-4 {
+    top: 8px;
+    left: 12px;
+}
+
+.buff-5,
+.buff-reverse-5 {
+    top: 12px;
+}
+
+.buff-reverse-1,
+.buff-reverse-5 {
+    left: 7px;
+}
+
+.buff-reverse-2 {
+    bottom: 8px;
+    right: 12px;
+}
+
+.buff-reverse-3 {
+    right: 17px;
+}
+
+.buff-reverse-4 {
+    top: 8px;
+    right: 12px;
+}
+
+/* HP SETUP */
+
+.hp-bar {
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
 }
 
 .hp-bar-right {
-    margin-left: 2rem;    
+    margin-left: 2rem;
 }
-
 
 .hp {
     width: 24px;
