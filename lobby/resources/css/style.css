@@ -84,14 +84,6 @@ input:focus {
     outline: none;
 }
 
-.lobby-entry {
-    display: flex;
-}
-
-.lobby-entry p {
-    padding-top: 7px;
-}
-
 .lobbies-list-form {
     display: flex;
     flex-direction: column;
@@ -104,7 +96,7 @@ input:focus {
     width: 0;
 }
 
-p,
+li,
 .lobbies-list-form button {
     font-size: 2rem;
 }
