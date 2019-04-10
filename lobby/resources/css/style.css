@@ -1,0 +1,123 @@
+@font-face {
+    font-family: 'Old Town';
+    src: url('../fonts/oldTown.woff');
+}
+
+body {
+    background: #2c201d;
+    font-family: 'Old Town', Fallback, sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+.panel {
+    height: 100vh;
+    width: 100vw;
+    background: url(../images/bg_cropped.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes autofill {
+    to {
+        color: #000;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    
+}
+
+input,
+button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: 3px solid #000;
+    text-align: center;
+    font-family: 'Old Town', Fallback, sans-serif;
+    font-size: 3.5rem;
+}
+
+input[type=text] {
+    margin-bottom: 5rem;
+}
+
+button {
+    -webkit-appearance: none;
+    border: none;
+    cursor: pointer;
+    padding-top: 5px;
+    border-top: 3px solid rgba(0, 0, 0, 0);
+    border-bottom: 3px solid rgba(0, 0, 0, 0);
+    text-transform: uppercase;
+}
+
+button:hover {
+    transition: border-color 0.3s linear;
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+}
+
+button:focus {
+    outline: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+.lobby-entry {
+    display: flex;
+}
+
+.lobby-entry p {
+    padding-top: 7px;
+}
+
+.lobbies-list-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: 19rem;
+    overflow-y: scroll;
+}
+
+.lobbies-list-form::-webkit-scrollbar {
+    width: 0;
+}
+
+p,
+.lobbies-list-form button {
+    font-size: 2rem;
+}
+
+.players-list-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.lobby {
+    text-align: center;
+}
+
+.start-game {
+    margin-top: 1rem;
+}
