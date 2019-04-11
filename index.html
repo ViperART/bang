@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,10 @@
     <link rel="stylesheet" href="./resources/css/reset.css">
     <link rel="stylesheet" href="./lobby/resources/css/style.css">
 </head>
+
 <body>
     <div class="panel">
-        <fieldset class="login-set">
+        <fieldset class="login-set  ">
             <form class="login-form" action="">
                 <input required type="text" name="nickname" placeholder="Большой Джонни">
                 <button class="login" type="submit" value="login">Войти</button>
@@ -23,38 +25,43 @@
             </form>
         </fieldset>
         <fieldset class="lobbies-list-set hidden">
+            <div class="reload-button">
+                <a href="#"><img src="./resources/images/refresh_icon.svg" alt=""></a>
+            </div>
+            <p>Список лобби:</p>
             <form class="lobbies-list-form" action="">
                 <ol>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
-                    <li>Большой Джонни |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
+                    <li>FFFFFFFFFFFF |<button class="join-lobby" type="submit" value="joinLobby">Войти</button></li>
                 </ol>
             </form>
         </fieldset>
         <fieldset class="lobby-set hidden">
-                <form class="lobby-form" action="">
-                    <div class="lobby">
-                        <p class="players-list-title">Игроки:</p>
-                        <ol>
-                            <li class="player">Большой Джонни</li>
-                            <li class="player">Большой Джонни</li>
-                            <li class="player">Большой Джонни</li>
-                            <li class="player">Большой Джонни</li>
-                            <li class="player">Большой Джонни</li>
-                            <li class="player">Большой Джонни</li>
-                            <li class="player">Большой Джонни</li>
-                        </ol>
-                        <button onclick="" class="start-game" type="submit" value="startGame">Начать игру</button>                  
-                    </div>
-                </form>
-            </fieldset>
+            <form class="lobby-form" action="">
+                <div class="lobby">
+                    <p class="players-list-title">Игроки:</p>
+                    <ol>
+                        <li class="player">Большой Джонни</li>
+                        <li class="player">Большой Джонни</li>
+                        <li class="player">Большой Джонни</li>
+                        <li class="player">Большой Джонни</li>
+                        <li class="player">Большой Джонни</li>
+                        <li class="player">Большой Джонни</li>
+                        <li class="player">Большой Джонни</li>
+                    </ol>
+                    <button onclick="" class="start-game" type="submit" value="startGame">Начать игру</button>
+                </div>
+            </form>
+        </fieldset>
     </div>
     <script src="./lobby/resources/js/changer.js"></script>
 </body>
+
 </html>
