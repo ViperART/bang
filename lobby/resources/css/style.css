@@ -4,21 +4,16 @@
 }
 
 body {
-    background: #2c201d;
     font-family: 'Old Town', Fallback, sans-serif;
-}
-
-.hidden {
-    display: none;
+    background: url(../../../resources/images/background_4k.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .panel {
     height: 100vh;
     width: 100vw;
-    background: url(../images/bg_cropped.jpg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;    
@@ -96,20 +91,53 @@ input:focus {
     width: 0;
 }
 
+.reload {
+    background: url(../../../resources/images/refresh_icon.svg);
+    height: 40px;
+    width: 40px;
+}
+
+.reload-button img {
+    height: 50px;
+    transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.reload-button img:hover {
+    transform: rotate(-180deg);
+    transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    cursor: pointer;
+}
+
+.lobbies-list-set {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+
+.lobbies-list-set p,
+.reload-button {
+    font-size: 3rem;
+    text-align: center;
+}
+
+ol {
+    margin-left: 3rem;
+}
+
 li,
 .lobbies-list-form button {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .players-list-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    margin-bottom: 0.3rem;
 }
 
 .lobby {
     text-align: center;
 }
 
-.start-game {
-    margin-top: 1rem;
+.hidden {
+    display: none;
 }
