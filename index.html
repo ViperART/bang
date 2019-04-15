@@ -8,25 +8,26 @@
     <title>Bang</title>
     <link rel="stylesheet" href="./resources/css/reset.css">
     <link rel="stylesheet" href="./lobby/resources/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="panel">
-        <fieldset class="login-set  ">
-            <form class="login-form" action="">
-                <input required type="text" name="nickname" placeholder="Большой Джонни">
+        <fieldset class="login-set">
+            <form class="login-form" onsubmit="return false" action="">
+                <input required type="text" class="username" name="username" placeholder="Большой Джонни">
                 <button class="login" type="submit" value="login">Войти</button>
             </form>
         </fieldset>
         <fieldset class="choose-action-set hidden">
-            <form class="choose-action-form" action="">
-                <button class="create-lobby" type="submit" value="createLobby">Создать игру</button>
-                <button class="show-lobbies" type="submit" value="showLobbiesList">Присоединиться к игре</button>
-            </form>
+            <div class="choose-action-form" action="">
+                <button class="create-lobby">Создать игру</button>
+                <button class="show-lobbies">Присоединиться к игре</button>
+            </div>
         </fieldset>
         <fieldset class="lobbies-list-set hidden">
             <div class="reload-button">
-                <a href="#"><img src="./resources/images/refresh_icon.svg" alt=""></a>
+                <button class="reload"></button>
             </div>
             <p>Список лобби:</p>
             <form class="lobbies-list-form" action="">
@@ -43,7 +44,7 @@
                 </ol>
             </form>
         </fieldset>
-        <fieldset class="lobby-set hidden">
+        <fieldset class="lobby-set" style="display: none">
             <form class="lobby-form" action="">
                 <div class="lobby">
                     <p class="players-list-title">Игроки:</p>
@@ -61,7 +62,10 @@
             </form>
         </fieldset>
     </div>
-    <script src="./lobby/resources/js/changer.js"></script>
+    <script src="./lobby/resources/js/client.js"></script>
+    <script src="./lobby/resources/js/controllers/lobbyController.js"></script>
+    <!-- <script src="./lobby/resources/js/clientLobbyController.js"></script> -->
+    <script src="./lobby/resources/js/app.js"></script>
 </body>
 
 </html>

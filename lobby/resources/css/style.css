@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Old Town';
-    src: url('../fonts/oldTown.woff');
+    src: url('../../../resources/fonts/oldTown.woff');
 }
 
 body {
@@ -92,17 +92,15 @@ input:focus {
 }
 
 .reload {
+    border: none;
     background: url(../../../resources/images/refresh_icon.svg);
     height: 40px;
     width: 40px;
-}
-
-.reload-button img {
-    height: 50px;
     transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.reload-button img:hover {
+.reload:hover {
+    border: none;
     transform: rotate(-180deg);
     transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
     cursor: pointer;
