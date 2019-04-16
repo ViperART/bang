@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="lobby-panel " style="display: none">
+    <div class="lobby-panel">
         <div class="login-set">
             <div class="login-form">
                 <input type="text" class="username" placeholder="Большой Джонни">
@@ -30,39 +30,21 @@
                 <button class="reload"></button>
             </div>
             <p>Список лобби:</p>
-            <div class="lobbies-list-form" action="">
-                <ol>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                    <li>FFFFFFFFFFFF |<button class="join-lobby">Войти</button></li>
-                </ol>
+            <div class="lobbies-list-form">
+                <ol id="lobbies-list"></ol>
             </div>
         </div>
         <div class="lobby-set" style="display: none">
-            <div class="lobby-form" action="">
+            <div class="lobby-form">
                 <div class="lobby">
                     <p class="players-list-title">Игроки:</p>
-                    <ol>
-                        <li class="lobby-player">Большой Джонни</li>
-                        <li class="lobby-player">Большой Джонни</li>
-                        <li class="lobby-player">Большой Джонни</li>
-                        <li class="lobby-player">Большой Джонни</li>
-                        <li class="lobby-player">Большой Джонни</li>
-                        <li class="lobby-player">Большой Джонни</li>
-                        <li class="lobby-player">Большой Джонни</li>
-                    </ol>
+                    <ol id='players-list'></ol>
                     <button id="start-game-button">Начать игру</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="game-panel" >
+    <div class="game-panel" style="display: none">
         <div class="gameboard">
             <div class="playfield-hub">
                 <div class="playfield-attacker">
@@ -557,7 +539,7 @@
         </div>
     </div>
         <script src="./resources/js/client.js"></script>
-        <script src="./resources/js/controllers/lobbyController.js"></script>
+        <script src="./resources/js/controllers/lobby.js"></script>
         <script src="./resources/js/app.js"></script>
 </body>
 
