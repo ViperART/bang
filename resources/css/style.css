@@ -115,15 +115,16 @@ input:focus {
     width: 0;
 }
 
-.reload {
+#reload {
     border: none;
-    background: url(../../../resources/images/refresh_icon.svg);
+    background: url(../images/svg/refresh_icon.svg);
     height: 40px;
     width: 40px;
     transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    margin-right: 4rem;
 }
 
-.reload:hover {
+#reload:hover {
     border: none;
     transform: rotate(-180deg);
     transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -137,14 +138,37 @@ input:focus {
 }
 
 .lobbies-list-set p,
-.reload-button {
+.control-elements {
     font-size: 3rem;
     text-align: center;
 }
 
+.control-elements {
+    width: 28rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-elements #back-from-lobbies-list {
+    font-size: 2.5rem;
+    margin-right: 3rem;
+}
+
+#back-from-lobby {
+    font-size: 2.5rem;
+    margin-right: 16rem;
+}
+
 .lobby ol {
+    flex-direction: column;
     position: relative;
     left: 12rem;
+    max-width: 25rem;
+}
+
+li {
+    text-align: left;
 }
 
 li,

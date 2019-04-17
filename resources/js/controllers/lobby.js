@@ -1,15 +1,11 @@
 class LobbyController {
 
     create(message) {
-        let insert = '';
-        message.response.forEach(element => {
-            // TODO: mark host with color or icon
-            insert += `<li class="lobby-player">${element.nickname}</li>`
-        })
-        
-        $("#players-list").html(insert);
+        // TODO: get id from message.response and set it on "back" button
+        this._renderClientsList(message.response.clients);
         $(".choose-action-set").hide();
         $(".lobby-set").show();
+        $("#back-from-lobby").attr("data-id", message.response.id);
     }
 
     list(message) {
@@ -24,15 +20,30 @@ class LobbyController {
     }
 
     join(message) {
-        // response -> list of lobby players
-        let insert = '';
-        message.response.forEach(element => {
-            // TODO: mark host with color or icon
-            insert += `<li class="lobby-player">${element.nickname}</li>`
-        })
-        
-        $("#players-list").html(insert);
         $(".lobbies-list-set").hide();
         $(".lobby-set").show();
+    }
+
+    leave(message) {
+        $(".lobby-set").hide();
+        $(".choose-action-set").show();
+    }
+
+    onClientLeft(message) {
+        this._renderClientsList(message.response);
+    }
+
+    onClientJoin(message) {
+        this._renderClientsList(message.response);
+    }
+
+    _renderClientsList(clients) {
+        let insert = '';
+        clients.forEach(element => {
+            let isHost = element.isHost ? '(HOST) ': '';
+            insert += `<li class="lobby-player">${isHost}${element.nickname}</li>`
+        });
+
+        $("#players-list").html(insert);
     }
 }

@@ -51,13 +51,12 @@ class Client {
             let method = controller[type[1]];
             
             if (controller && method) {
-                method(message);
+                app.controllers[type[0]][type[1]](message);
             }
-
         }
     }
 
     handleClose(event) {
-        console.log('[Client] CLOSED: ',event)
+        console.log('[Client] CLOSED: ', event)
     }
 }
