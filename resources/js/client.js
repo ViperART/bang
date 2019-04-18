@@ -43,7 +43,7 @@ class Client {
     handleMessage(message) {
         message = JSON.parse(message.data);
         if (!message.success) {
-            console.log('[Client] ERROR MESSAGE FROM SERVER: ' + message.error)
+            $.notify(message.error, "error");
         } else {
             let type = message.type.split('.');
             
