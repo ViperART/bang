@@ -8,7 +8,9 @@
     <title>Bang</title>
     <link rel="stylesheet" href="./resources/css/reset.css">
     <link rel="stylesheet" href="./resources/css/style.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 </head>
 
@@ -46,21 +48,41 @@
         </div>
     </div>
 </div>
-<div class="game-panel" style="display: none">
-    <div class="gameboard">
-        <div class="playfield-hub">
-            <div class="playfield-attacker">
-                <span>ЦЕЛЬ<br></span>
-                <span>FFFFFFFFFFFF</span>
-                <div class="thrown-card-wrap">
-                    <img class="thrown-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+<div class="game-panel" data-id="" style="display: none">
+    <div class="game-board">
+        <div class="play-field-hub">
+            <div id="action-interface" style="display: none">
+                <div id="shop-interface">
+                    <div id="thrown-card-wrap">
+                        <img id="thrown-card" src="./resources/images/cards/full/shop.png" alt="">
+                    </div>
+                    <p>&nbsp;&nbsp;>&nbsp;&nbsp;</p>
+                    <div id="shop-selection">
+                        <div class="card-from-shop-wrap">
+                            <img class="card-from-shop" src="./resources/images/cards/full/shop.png" alt="">
+                        </div>
+                        <div class="card-from-shop-wrap">
+                            <img class="card-from-shop" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                        </div>
+                        <div class="card-from-shop-wrap">
+                            <img class="card-from-shop" src="./resources/images/cards/full/shop.png" alt="">
+                        </div>
+                        <div class="card-from-shop-wrap">
+                            <img class="card-from-shop" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                        </div>
+                        <div class="card-from-shop-wrap">
+                            <img class="card-from-shop" src="./resources/images/cards/full/shop.png" alt="">
+                        </div>
+                        <div class="card-from-shop-wrap">
+                            <img class="card-from-shop" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                        </div>
+                        <div class="card-from-shop-wrap">
+                            <img class="card-from-shop" src="./resources/images/cards/full/shop.png" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="playfield-defender">
-                <span><br>ОТВЕТ</span>
-                <div class="thrown-card-wrap">
-                    <img class="thrown-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
-                </div>
+            <div class="play-field">
             </div>
         </div>
         <div class="packs-hub">
@@ -140,37 +162,40 @@
                     </div>
                 </div>
             </div>
-            <div class="local-player-deck">
+            <div id="local-player-hand">
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
                 <div class="local-player-card-wrap">
-                    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
+                    <img class="local-player-card" src="./resources/images/cards/full/shop.png" alt="">
                 </div>
+            </div>
+            <div id="end-turn-button-wrap">
+                <img id="end-turn-button" src="./resources/images/misc/end_turn.png" alt="">
             </div>
         </div>
         <div class="players">
@@ -186,11 +211,9 @@
                     <div class="hp"></div>
                 </div>
                 <div class="portait-wrap">
-                    <img class="portait player-active"
-                         onmouseover="this.src='./resources/images/characters/full/pedro_full.png'"
+                    <img class="portait " onmouseover="this.src='./resources/images/characters/full/pedro_full.png'"
                          onmouseout="this.src='./resources/images/characters/cropped/pedro_cropped.jpg'"
                          src="./resources/images/characters/cropped/pedro_cropped.jpg" alt="">
-
                     <div class="weapon-wrap">
                         <img class="weapon" src="./resources/images/cards/cropped/scoffield_cropped.jpg"
                              onmouseover="this.src='./resources/images/cards/full/scoffield_full.png'"
@@ -199,6 +222,12 @@
                     <div class="card-counter-wrap">
                         <div class="card-counter">
                             <p>99</p>
+                        </div>
+                    </div>
+                    <div class="range-tracker-wrap">
+                        <div class="range-tracker">
+                            <p class="attack-range">4</p>
+                            <p class="defense-range">3</p>
                         </div>
                     </div>
                     <div class="badge-wrap">
@@ -263,66 +292,10 @@
                             <p>99</p>
                         </div>
                     </div>
-                    <div class="badge-wrap">
-                        <img class="badge" src="./resources/images/roles/sheriff.png" alt="">
-                    </div>
-                </div>
-                <div class="buff-list">
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="player">
-                <div class="nickname">
-                    <p>FFFFFFFFFFFF</p>
-                </div>
-                <div class="hp-bar">
-                    <div class="hp"></div>
-                    <div class="hp"></div>
-                    <div class="hp"></div>
-                    <div class="hp"></div>
-                    <div class="hp"></div>
-                </div>
-                <div class="portait-wrap">
-                    <img class="portait " onmouseover="this.src='./resources/images/characters/full/pedro_full.png'"
-                         onmouseout="this.src='./resources/images/characters/cropped/pedro_cropped.jpg'"
-                         src="./resources/images/characters/cropped/pedro_cropped.jpg" alt="">
-                    <div class="weapon-wrap">
-                        <img class="weapon" src="./resources/images/cards/cropped/scoffield_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/scoffield_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/scoffield_cropped.jpg'" alt="">
-                    </div>
-                    <div class="card-counter-wrap">
-                        <div class="card-counter">
-                            <p>99</p>
+                    <div class="range-tracker-wrap">
+                        <div class="range-tracker">
+                            <p class="attack-range">4</p>
+                            <p class="defense-range">3</p>
                         </div>
                     </div>
                 </div>
@@ -384,63 +357,10 @@
                             <p>99</p>
                         </div>
                     </div>
-                </div>
-                <div class="buff-list">
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                    <div class="buff-wrap">
-                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
-                             class="buff" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="player">
-                <div class="nickname">
-                    <p>FFFFFFFFFFFF</p>
-                </div>
-                <div class="hp-bar">
-                    <div class="hp"></div>
-                    <div class="hp"></div>
-                    <div class="hp"></div>
-                    <div class="hp"></div>
-                    <div class="hp"></div>
-                </div>
-                <div class="portait-wrap">
-                    <img class="portait " onmouseover="this.src='./resources/images/characters/full/pedro_full.png'"
-                         onmouseout="this.src='./resources/images/characters/cropped/pedro_cropped.jpg'"
-                         src="./resources/images/characters/cropped/pedro_cropped.jpg" alt="">
-                    <div class="weapon-wrap">
-                        <img class="weapon" src="./resources/images/cards/cropped/scoffield_cropped.jpg"
-                             onmouseover="this.src='./resources/images/cards/full/scoffield_full.png'"
-                             onmouseout="this.src='./resources/images/cards/cropped/scoffield_cropped.jpg'" alt="">
-                    </div>
-                    <div class="card-counter-wrap">
-                        <div class="card-counter">
-                            <p>99</p>
+                    <div class="range-tracker-wrap">
+                        <div class="range-tracker">
+                            <p class="attack-range">4</p>
+                            <p class="defense-range">3</p>
                         </div>
                     </div>
                 </div>
@@ -500,6 +420,77 @@
                     <div class="card-counter-wrap">
                         <div class="card-counter">
                             <p>99</p>
+                        </div>
+                    </div>
+                    <div class="range-tracker-wrap">
+                        <div class="range-tracker">
+                            <p class="attack-range">4</p>
+                            <p class="defense-range">3</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="buff-list">
+                    <div class="buff-wrap">
+                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
+                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
+                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
+                             class="buff" alt="">
+                    </div>
+                    <div class="buff-wrap">
+                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
+                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
+                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
+                             class="buff" alt="">
+                    </div>
+                    <div class="buff-wrap">
+                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
+                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
+                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
+                             class="buff" alt="">
+                    </div>
+                    <div class="buff-wrap">
+                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
+                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
+                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
+                             class="buff" alt="">
+                    </div>
+                    <div class="buff-wrap">
+                        <img src="./resources/images/cards/cropped/dynamite_cropped.jpg"
+                             onmouseover="this.src='./resources/images/cards/full/dynamite_full.png'"
+                             onmouseout="this.src='./resources/images/cards/cropped/dynamite_cropped.jpg'"
+                             class="buff" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="player">
+                <div class="nickname">
+                    <p>FFFFFFFFFFFF</p>
+                </div>
+                <div class="hp-bar">
+                    <div class="hp"></div>
+                    <div class="hp"></div>
+                    <div class="hp"></div>
+                    <div class="hp"></div>
+                    <div class="hp"></div>
+                </div>
+                <div class="portait-wrap">
+                    <img class="portait " onmouseover="this.src='./resources/images/characters/full/pedro_full.png'"
+                         onmouseout="this.src='./resources/images/characters/cropped/pedro_cropped.jpg'"
+                         src="./resources/images/characters/cropped/pedro_cropped.jpg" alt="">
+                    <div class="weapon-wrap">
+                        <img class="weapon" src="./resources/images/cards/cropped/scoffield_cropped.jpg"
+                             onmouseover="this.src='./resources/images/cards/full/scoffield_full.png'"
+                             onmouseout="this.src='./resources/images/cards/cropped/scoffield_cropped.jpg'" alt="">
+                    </div>
+                    <div class="card-counter-wrap">
+                        <div class="card-counter">
+                            <p>99</p>
+                        </div>
+                    </div>
+                    <div class="range-tracker-wrap">
+                        <div class="range-tracker">
+                            <p class="attack-range">4</p>
+                            <p class="defense-range">3</p>
                         </div>
                     </div>
                 </div>
@@ -537,12 +528,10 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <script src="./resources/js/client.js"></script>
 <script src="./resources/js/controllers/lobby.js"></script>
 <script src="./resources/js/app.js"></script>
 </body>
-
 </html>
