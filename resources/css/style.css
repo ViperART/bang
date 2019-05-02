@@ -223,85 +223,22 @@ img {
 /* PLAYERS POSITIONING */
 
 .players {
-    display: grid;
-    grid-template-columns: 480px 320px 1fr 320px 480px;
-    grid-template-rows: 300px 300px;
-    align-items: center;
+    display: flex;
+    justify-content: space-around;
 }
 
-.players .player:nth-child(1) {
-    margin-right: 3rem;
-}
-
-.players .player:nth-child(2) {
-    margin-left: 3rem;
-}
-
-.players .player:nth-child(6) {
-    justify-self: end;
-}
-
-.players .player:nth-child(-n + 2) {
-    margin-top: 1rem;
-}
-
-.players .player:nth-child(1),
-.players .player:nth-child(3) {
-    justify-self: end;
-}
-
-.players .player:nth-child(2),
-.players .player:nth-child(4) {
-    justify-self: start;
-}
-
-.players .player:nth-child(3),
-.players .player:nth-child(4) {
-    margin-top: 8rem;
-}
-
-
-.players .player:nth-child(-n + 4) {
-    margin-bottom: 1rem;
-    align-self: start;
+.local-player-role p {
+    text-transform: uppercase;
 }
 
 .player {
+    margin-top: 1rem;
     height: 250px;
     width: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.players .player:nth-child(1) {
-    grid-column: 2 / 2;
-    grid-row: 1 / 1;
-}
-
-.players .player:nth-child(2) {
-    grid-column: 4 / 4;
-    grid-row: 1 / 1;
-}
-
-.players .player:nth-child(3) {
-    grid-column: 1 / 1;
-    grid-row: 1 / 1;
-}
-
-.players .player:nth-child(4) {
-    grid-column: 5 / 5;
-    grid-row: 1 / 1;
-}
-
-.players .player:nth-child(5) {
-    grid-column: 1 / 1;
-    grid-row: 2 / 2;
-}
-
-.players .player:nth-child(6) {
-    grid-column: 5 / 5;
-    grid-row: 2 / 2;
+    z-index: 50;
 }
 
 /* NICKNAME SETUP */
@@ -358,11 +295,7 @@ img {
     border: 2px solid #68abf8;
 }
 
-.portait-right {
-    margin-left: 1.75rem;
-}
-
-.portait:hover {
+.players .portait:hover {
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 160px;
     height: 254px;
@@ -396,11 +329,6 @@ img {
     cursor: pointer;
 }
 
-.player:nth-child(even) .badge-wrap .badge {
-    right: 0;
-    left: 102px;
-}
-
 /* WEAPON SETUP */
 
 .weapon-wrap {
@@ -424,11 +352,7 @@ img {
     z-index: 11;
 }
 
-.player:nth-child(even) .portait-wrap .weapon-wrap .weapon {
-    left: 7rem;
-}
-
-.weapon:hover {
+.players .weapon:hover {
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 160px;
     height: 254px;
@@ -470,20 +394,20 @@ img {
 
 /* BUFFS CIRCLE POSITIONING */
 
-.player:nth-child(odd) .buff-list {
+.player .buff-list {
     position: relative;
     bottom: 9rem;
     left: 5rem;
 }
 
-.player:nth-child(even) .buff-list {
+.player .buff-list {
     position: relative;
     bottom: 9rem;
     right: 5rem;
 }
 
-.player:nth-child(odd) .buff-list :nth-child(1) img,
-.player:nth-child(odd) .buff-list :nth-child(5) img {
+.player .buff-list :nth-child(1) img,
+.player .buff-list :nth-child(5) img {
     right: 7px;
 }
 
@@ -491,16 +415,16 @@ img {
     bottom: 12px;
 }
 
-.player:nth-child(odd) .buff-list :nth-child(2) img {
+.player .buff-list :nth-child(2) img {
     bottom: 8px;
     left: 12px;
 }
 
-.player:nth-child(odd) .buff-list :nth-child(3) img {
+.player .buff-list :nth-child(3) img {
     left: 17px;
 }
 
-.player:nth-child(odd) .buff-list :nth-child(4) img {
+.player .buff-list :nth-child(4) img {
     top: 8px;
     left: 12px;
 }
@@ -509,24 +433,6 @@ img {
     top: 12px;
 }
 
-.player:nth-child(even) .buff-list :nth-child(1) img,
-.player:nth-child(even) .buff-list :nth-child(5) img {
-    left: 7px;
-}
-
-.player:nth-child(even) .buff-list :nth-child(2) img {
-    bottom: 8px;
-    right: 12px;
-}
-
-.player:nth-child(even) .buff-list :nth-child(3) img {
-    right: 17px;
-}
-
-.player:nth-child(even) .buff-list :nth-child(4) img {
-    top: 8px;
-    right: 12px;
-}
 
 /* HP SETUP */
 
@@ -563,10 +469,37 @@ img {
     justify-content: center;
 }
 
+.packs-hub {
+    align-items: center !important;
+    justify-content: flex-start;
+    margin-left: 5rem;
+}
+
 /* LOCAL PLAYER SETUP */
 
 .local-player {
     margin-bottom: 3.6rem;
+}
+
+.local-player-hub .portait:hover,
+.local-player-hub .weapon:hover {
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
+    border: none;
+    border-radius: 0;
+    transform-origin:bottom left;
+    z-index: 25;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.local-player-hub .portait:hover {
+    transform: scale(1.2, 1.9);
+}
+
+.local-player-hub .weapon:hover {
+    transform: scale(3.6, 5.7);
 }
 
 #local-player-hand {
@@ -765,10 +698,6 @@ img {
     background-size: contain;
 }
 
-.player:nth-child(even) .card-counter {
-    left: 8.5rem;
-}
-
 /* SHOP INTERFACE SETUP */
 
 #shop-interface,
@@ -780,6 +709,7 @@ img {
 #shop-interface p {
     font-size: 5rem;
     color: #fff;
+    margin: 0 1.5rem;
 }
 
 #thrown-card,
@@ -826,7 +756,23 @@ img {
     margin-left: 45px;
 }
 
-    /* NOTIFY JS SETUP */
+/* PLAYER CHOOSER SETUP */
+
+#player_chooser {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 49;
+    opacity: 0.8;
+    font-size: 3rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* NOTIFY JS SETUP */
 
 .notifyjs-corner {
     font-size: 1.5rem;

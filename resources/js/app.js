@@ -5,6 +5,10 @@ const state = {
     LOBBY_JOINED: 3
 };
 
+// TODO: блокировать кнопку окончания хода (или затемнять), если твой id != game.currentPlayer
+// TODO: написать функцию, которая по имени карты определяет надо ли показывать окно выбора игрока
+// var cardsNeedReceiver = ["Бах", ...]
+
 const cardMarkup = `
 <div class="local-player-card-wrap ui-draggable ui-draggable-handle" style="position: relative;">
     <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
@@ -14,9 +18,16 @@ const cardMarkup = `
 const app = {
     client: new Client('localhost', 8080),
     controllers: {
-        lobby: new LobbyController()
+        lobby: new LobbyController(),
+        game: new GameController()
     },
     currentState: state.MAIN_MENU,
+    playerChooserCallback: null,
+
+    showPlayerChoose(callback) {
+        app.playerChooserCallback = callback;
+        $("#player_chooser").show();
+    },
 
     setState: (state) => {
         app.currentState = state;
@@ -41,6 +52,51 @@ const app = {
     isInLobbyList: () => {
         return app.currentState === state.LOBBY_LIST;
     },
+
+    makeDraggable() {
+        $('.local-player-card-wrap').draggable({
+            start: function(event, ui) {
+                ui.helper.data('thrown', false);
+                $(this).css({
+                    transition: ''
+                })
+            },
+
+            stop: function (event, ui) {
+                if (ui.helper.data('thrown')) {
+
+                    if ($(this).attr('data-name') === 'Тюрьма') { // todo: replace with function isReceiverRequired(data-name)
+                        app.showPlayerChoose((receiverId) => {
+                            app.client.send('game', 'throw', {
+                                gameId: $(".game-panel").attr('data-id'),
+                                cardIndex: $(this).attr('data-index'),
+                                receiverPlayerId: receiverId
+                            });
+                        });
+                    } else {
+                        app.client.send('game', 'throw', {gameId: $(".game-panel").attr('data-id'), cardIndex: $(this).attr('data-index')});
+                    }
+
+
+                    // $(this).remove();
+                    // $('#action-interface').css({display: 'block'});
+                } else {
+                    $(this).css({
+                        transition: 'all 0.2s linear',
+                        left: 0,
+                        top: 0
+                    });
+
+                    setTimeout(function () {
+                        $('.local-player-card-wrap').css({
+                            transition: ''
+                        })
+                    }, 400)
+                }
+
+            }
+        });
+    }
 };
 
 $(document).ready(function () {
@@ -49,7 +105,7 @@ $(document).ready(function () {
 
         let inputUsername = $('input.username').val();
         if (inputUsername.trim() === '' || inputUsername.trim().length > 24) {
-            $.notify('Никнейм больше 24 символов или пуст', 'error');
+            $.notify('Введите имя от 1 до 24 символов', 'error');
             return;
         }
 
@@ -82,7 +138,15 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#start-game-button', function () {
-        app.client.send('lobby', 'gameStart', {id: $('#back-from-lobby').attr('data-id')})
+        app.client.send('lobby', 'gameStart', {id: $('#back-from-lobby').attr('data-id')});
+    });
+
+    $(document).on('click', '.player', function () {
+        if (app.playerChooserCallback !== null) {
+            app.playerChooserCallback($(this).attr('data-client-id'));
+            app.playerChooserCallback = null;
+            $("#player_chooser").hide();
+        }
     });
 
     $('#back-from-lobbies-list').on('click', () => {
@@ -99,69 +163,7 @@ $(document).ready(function () {
     $('.card-from-shop').on('click', function () {
        $(this).remove();
        $('#local-player-hand').append(cardMarkup);
-    });
-
-    $('.play-field').droppable({
-        // accept: '.local-player-card-wrap',
-
-        drop: function(event, ui)
-        {
-            ui.helper.data('thrown', true);
-        },
-
-        activate: function () {
-            $('.play-field').css({
-                border: '#b5d7ff 1px solid',
-                borderRadius: '10px'
-            })
-        },
-
-        deactivate: function() {
-            $('.play-field').css({
-                border: '',
-                backgroundColor: ''
-            })
-        },
-
-        over: function() {
-            $('.play-field').css({
-                backgroundColor: "hsla(212, 100%, 85%, 0.27)"
-            });
-        },
-
-        out: function() {
-            $('.play-field').css("background-color", "");
-        }
-
-    });
-
-    $('.local-player-card-wrap').draggable({
-        start: function(event, ui) {
-            ui.helper.data('thrown', false);
-            $(this).css({
-                transition: ''
-            })
-        },
-
-        stop: function (event, ui) {
-            if (ui.helper.data('thrown')) {
-                $(this).remove();
-                $('#action-interface').css({display: 'block'})
-            } else {
-                $(this).css({
-                    transition: 'all 0.2s linear',
-                    left: 0,
-                    top: 0
-                });
-
-                setTimeout(function () {
-                    $('.local-player-card-wrap').css({
-                        transition: ''
-                    })
-                }, 400)
-            }
-
-        }
+       app.makeDraggable();
     });
 });
 
