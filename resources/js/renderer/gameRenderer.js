@@ -55,10 +55,7 @@ class GameRenderer {
                     </div>
                     <div class="card-counter-wrap"><div class="card-counter"><p>${player.cardsCount}</p></div></div>
                     <div class="range-tracker-wrap">
-                        <div class="range-tracker">
-                            <p class="attack-range">4</p>
-                            <p class="defense-range">3</p>
-                        </div>
+                        ${isLocalPlayer ? '' : '<div class="range-tracker"><p class="attack-range">4</p><p class="defense-range">3</p></div>'}
                     </div>
                     ${player.isSheriff ? '<div class="badge-wrap"><img class="badge" src="./resources/images/roles/sheriff.png" alt="Шериф"></div>' : ''}
                 </div>

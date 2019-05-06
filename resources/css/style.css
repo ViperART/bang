@@ -296,7 +296,7 @@ img {
 }
 
 .players .portait:hover {
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
     width: 160px;
     height: 254px;
     z-index: 10;
@@ -329,6 +329,10 @@ img {
     cursor: pointer;
 }
 
+.local-player .badge {
+    bottom: 280px;
+}
+
 /* WEAPON SETUP */
 
 .weapon-wrap {
@@ -353,7 +357,7 @@ img {
 }
 
 .players .weapon:hover {
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
     width: 160px;
     height: 254px;
     border-radius: 0;
@@ -382,8 +386,8 @@ img {
     border: 1px solid #68abf8;
 }
 
-.buff:hover {
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.players .buff:hover {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
     width: 160px;
     height: 254px;
     z-index: 23;
@@ -482,7 +486,8 @@ img {
 }
 
 .local-player-hub .portait:hover,
-.local-player-hub .weapon:hover {
+.local-player-hub .weapon:hover,
+.local-player-hub .buff:hover {
     transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
     border: none;
     border-radius: 0;
@@ -495,11 +500,15 @@ img {
 }
 
 .local-player-hub .portait:hover {
-    transform: scale(1.2, 1.9);
+    transform: scale(1.135, 1.801);
 }
 
 .local-player-hub .weapon:hover {
-    transform: scale(3.6, 5.7);
+    transform: scale(3.2, 5.08);
+}
+
+.local-player-hub .buff:hover {
+    transform: scale(5.926, 9.407);
 }
 
 #local-player-hand {

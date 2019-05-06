@@ -6,14 +6,6 @@ const state = {
 };
 
 // TODO: блокировать кнопку окончания хода (или затемнять), если твой id != game.currentPlayer
-// TODO: написать функцию, которая по имени карты определяет надо ли показывать окно выбора игрока
-// var cardsNeedReceiver = ["Бах", ...]
-
-const cardMarkup = `
-<div class="local-player-card-wrap ui-draggable ui-draggable-handle" style="position: relative;">
-    <img class="local-player-card" src="./resources/images/cards/full/dynamite_full.png" alt="">
-</div>
-`;
 
 const app = {
     client: new Client('localhost', 8080),
@@ -21,11 +13,25 @@ const app = {
         lobby: new LobbyController(),
         game: new GameController()
     },
+    gameState: null,
     currentState: state.MAIN_MENU,
     playerChooserCallback: null,
 
+    isReceiverRequired(cardName) {
+        let cardsRequireReceiver = ['Бах!', 'Тюрьма', 'Дуэль', 'Паника!', 'Плутовка Кэт'];
+
+        for (let i = 0; i < cardsRequireReceiver.length; i++) {
+            if (cardsRequireReceiver[i] === cardName) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
     showPlayerChoose(callback) {
         app.playerChooserCallback = callback;
+        // TODO: hide players (based on app.gameState) by distance checker from server (just copy paste server code to client code)
         $("#player_chooser").show();
     },
 
@@ -64,8 +70,7 @@ const app = {
 
             stop: function (event, ui) {
                 if (ui.helper.data('thrown')) {
-
-                    if ($(this).attr('data-name') === 'Тюрьма') { // todo: replace with function isReceiverRequired(data-name)
+                    if (app.isReceiverRequired($(this).attr('data-name'))) {
                         app.showPlayerChoose((receiverId) => {
                             app.client.send('game', 'throw', {
                                 gameId: $(".game-panel").attr('data-id'),
@@ -76,23 +81,19 @@ const app = {
                     } else {
                         app.client.send('game', 'throw', {gameId: $(".game-panel").attr('data-id'), cardIndex: $(this).attr('data-index')});
                     }
-
-
-                    // $(this).remove();
-                    // $('#action-interface').css({display: 'block'});
-                } else {
-                    $(this).css({
-                        transition: 'all 0.2s linear',
-                        left: 0,
-                        top: 0
-                    });
-
-                    setTimeout(function () {
-                        $('.local-player-card-wrap').css({
-                            transition: ''
-                        })
-                    }, 400)
                 }
+
+                $('.local-player-card-wrap').css({
+                    transition: 'all 0.2s linear',
+                    left: 0,
+                    top: 0
+                });
+
+                setTimeout(function () {
+                    $('.local-player-card-wrap').css({
+                        transition: ''
+                    })
+                }, 400)
 
             }
         });
@@ -165,6 +166,15 @@ $(document).ready(function () {
        $('#local-player-hand').append(cardMarkup);
        app.makeDraggable();
     });
-});
 
-//TODO Запилить обновление списка лобби
+    $(document).on('click', '#reload', function () {
+        app.client.send('lobby', 'list', []);
+        app.setState(state.LOBBY_LIST);
+    });
+
+    $(document).on('click', '#end-turn-button-wrap', function () {
+        app.client.send('game', 'turnEnd', []);
+        $('#end-turn-button').attr('src', 'resources/images/misc/end_turn_inactive.png')
+    });
+
+});
