@@ -14,22 +14,49 @@ class GameRenderer {
     drawGameChange(game) {
         this._drawPlayers(game.players, game.currentPlayerId);
         this._renderPacks(game.cardsLeft, game.cardsUsed);
+        if (game.state) {
+            this._renderStateCards(game.state.cards);
+            if (game.state.isEnd) {
+                setTimeout(() =>  {
+                    $("#action-interface").fadeOut(300);
+                    setTimeout(() => {
+                        $("#action-interface").html('').show();
+                    }, 300)
+                }, 1000);
+            }
+        }
+
         app.makeDraggable();
     }
 
-    _drawPlayers(players, currentPlayerId) {
-       $("#players_list").html('');
-       $("#local_player_hub").html('');
-       for (let i in players) {
-           if (players[i].cards !== undefined) {
-               $("#local_player_hub").append(this._getPlayerTemplate(players[i], currentPlayerId, true));
-           } else {
-               $("#players_list").append(this._getPlayerTemplate(players[i], currentPlayerId, false));
-           }
-       }
+    _findLocalPlayer(players) {
+        let localPlayer;
+
+        for (let i in players) {
+            if ([players.hasOwnProperty(i)]) {
+                if (players[i].cards !== undefined) {
+                    localPlayer = players[i];
+                }
+            }
+        }
+
+        return localPlayer;
     }
 
-    _getPlayerTemplate(player, currentPlayerId, isLocalPlayer) {
+    _drawPlayers(players, currentPlayerId) {
+        let localPlayer = this._findLocalPlayer(players);
+        $("#players_list").html('');
+        $("#local_player_hub").html('');
+        for (let i in players) {
+            if (players[i].cards !== undefined) {
+                $("#local_player_hub").append(this._getPlayerTemplate(players[i], currentPlayerId, localPlayer, true));
+            } else {
+                $("#players_list").append(this._getPlayerTemplate(players[i], currentPlayerId, localPlayer, false));
+            }
+        }
+    }
+
+    _getPlayerTemplate(player, currentPlayerId, localPlayer, isLocalPlayer) {
         let currentPlayerClass = currentPlayerId === player.id ? 'player-active' : '';
         return `
             <div class="player ${isLocalPlayer ? 'local-player' : ''}" data-client-id="${player.id}">
@@ -55,14 +82,16 @@ class GameRenderer {
                     </div>
                     <div class="card-counter-wrap"><div class="card-counter"><p>${player.cardsCount}</p></div></div>
                     <div class="range-tracker-wrap">
-                        ${isLocalPlayer ? '' : '<div class="range-tracker"><p class="attack-range">4</p><p class="defense-range">3</p></div>'}
+                        ${isLocalPlayer ? '' : '<div class="range-tracker"><p class="defense-range">' + localPlayer.defenseDistances[player.id] + '</p><p class="attack-range">' + localPlayer.attackDistances[player.id] + '</p></div>'}
                     </div>
                     ${player.isSheriff ? '<div class="badge-wrap"><img class="badge" src="./resources/images/roles/sheriff.png" alt="Шериф"></div>' : ''}
                 </div>
                 <div class="buff-list">${this._renderBuffs(player.buffs)}</div>
             </div>
                 ${isLocalPlayer ? '<div id="local-player-hand">'+this._renderCards(player.cards)+'</div>' : ''}
-                ${isLocalPlayer ? '<div id="end-turn-button-wrap"><img id="end-turn-button" src="./resources/images/misc/end_turn.png" alt="">' : ''}
+                ${isLocalPlayer ? '<div class="end-turn-button-wrap"><img id="skip" class="end-turn-button" src="./resources/images/misc/take_damage.png" alt="">' : ''}
+                ${isLocalPlayer ? '<div class="end-turn-button-wrap"><img class="end-turn-button" src="./resources/images/misc/end_turn.png" alt="">' : ''}
+                
         `;
     }
 
@@ -81,6 +110,34 @@ class GameRenderer {
         let path = isCropped ? 'cropped': 'full';
         return `./resources/images/heroes/${path}/${type}.png`;
     }
+
+    _renderStateCards(cards) {
+        $('#action-interface').html('');
+
+        let html = '';
+
+        cards.forEach((card, index) => {
+            if (index === 0) {
+                html +=
+                    `
+                    <div class="thrown-card-wrap">
+                        <img id="thrown-card" src="${this.getCardImagePath(card.suit, card.rank, card.type, false, card.actionType)}" alt="">
+                    </div>
+                    `
+            } else {
+                html +=
+                    `
+                    <p id="divider">></p>
+                    <div class="card-aftermath-wrap">
+                        <img class="card-aftermath" src="${this.getCardImagePath(card.suit, card.rank, card.type, false, card.actionType)}" alt="">
+                    </div>
+                    `
+            }
+        });
+
+        $('#action-interface').html(html);
+    }
+
 
     _renderHP(hp) {
         let html = '';

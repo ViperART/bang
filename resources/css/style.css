@@ -664,7 +664,7 @@ img {
     height: 150px;
 }
 
-#end-turn-button {
+.end-turn-button {
     border: none;
     padding: 0;
     background: url('../images/misc/end_turn.png');
@@ -676,14 +676,14 @@ img {
     position: relative;
 }
 
-#end-turn-button:hover {
+.end-turn-button:hover {
     border: none;
     cursor: pointer;
     transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform: scale(1.05);
 }
 
-#end-turn-button:active {
+.end-turn-button:active {
     transform: scale(0.95);
 }
 
@@ -707,28 +707,28 @@ img {
     background-size: contain;
 }
 
-/* SHOP INTERFACE SETUP */
+/* ACTION INTERFACE SETUP */
 
-#shop-interface,
-#shop-selection {
+#action-interface,
+#action-aftermath {
     display: flex;
     align-items: center;
 }
 
-#shop-interface p {
+#action-interface p {
     font-size: 5rem;
     color: #fff;
     margin: 0 1.5rem;
 }
 
 #thrown-card,
-.card-from-shop {
+.card-aftermath {
     max-width: 160px;
     max-height: 290px;
     z-index: 100;
 }
 
-#shop-selection {
+#action-aftermath {
     display: grid;
     grid-template-columns: repeat(8, 90px);
     z-index: 150;
@@ -758,11 +758,11 @@ img {
 }
 
 .attack-range {
-    margin-left: 7px;
+    margin-left: 45px;
 }
 
 .defense-range {
-    margin-left: 45px;
+    margin-left: 7px;
 }
 
 /* PLAYER CHOOSER SETUP */
