@@ -14,14 +14,14 @@ class GameRenderer {
     drawGameChange(game) {
         this._drawPlayers(game.players, game.currentPlayerId);
         this._renderPacks(game.cardsLeft, game.cardsUsed);
-        if (game.state) {
+        if (game.state !== null) {
+            console.log('DRAWING TABLE WITH CARDS', game.state.cards);
             this._renderStateCards(game.state.cards);
             if (game.state.isEnd) {
                 setTimeout(() =>  {
-                    $("#action-interface").fadeOut(300);
-                    setTimeout(() => {
+                    $("#action-interface").fadeOut(300, () => {
                         $("#action-interface").html('').show();
-                    }, 300)
+                    });
                 }, 1000);
             }
         }
@@ -61,7 +61,7 @@ class GameRenderer {
         return `
             <div class="player ${isLocalPlayer ? 'local-player' : ''}" data-client-id="${player.id}">
                 ${isLocalPlayer ? '<div class="local-player-role"><p>'+this._resolveRoleName(player.role)+'</p></div>' : ''}
-                <div class="nickname"><p>${player.nickname}</p></div>
+                <div class="nickname"><p class="${player.color}">${player.nickname}</p></div>
                 <div class="hp-bar" data-rendered-hp="${player.hp}">${this._renderHP(player.hp)}</div>
                 <div class="portait-wrap">
                     <img 
@@ -87,9 +87,10 @@ class GameRenderer {
                     ${player.isSheriff ? '<div class="badge-wrap"><img class="badge" src="./resources/images/roles/sheriff.png" alt="Шериф"></div>' : ''}
                 </div>
                 <div class="buff-list">${this._renderBuffs(player.buffs)}</div>
+                <div class="speech-cloud" style="display: none"><p></p></div>
             </div>
                 ${isLocalPlayer ? '<div id="local-player-hand">'+this._renderCards(player.cards)+'</div>' : ''}
-                ${isLocalPlayer ? '<div class="end-turn-button-wrap"><img id="skip" class="end-turn-button" src="./resources/images/misc/take_damage.png" alt="">' : ''}
+                ${isLocalPlayer ? '<div class="take-damage-button-wrap"><img id="skip" class="take-damage-button" src="./resources/images/misc/take_damage.png" alt="">' : ''}
                 ${isLocalPlayer ? '<div class="end-turn-button-wrap"><img class="end-turn-button" src="./resources/images/misc/end_turn.png" alt="">' : ''}
                 
         `;
@@ -184,6 +185,88 @@ class GameRenderer {
                             class="buff" alt="">
                     </div>`;
         }).join('');
+    }
+
+    _renderSpeechCloud(id, text) {
+        let speechCloud = $(`.player[data-client-id*=${id}]`).children('.speech-cloud');
+        text = text.replace(/@(.*?)\{(.*?)\}/, '<span class="$1">$2</span>');
+        speechCloud.html(text);
+        speechCloud.fadeIn(300);
+
+        setTimeout(() => {
+            speechCloud.fadeOut(300, () => {
+                speechCloud.children('p').html('')
+            });
+        }, 2500);
+    }
+
+    _createTextForSpeechCloud(initiatorNickname, initiatorColor, receiverNickname, receiverColor, cardName) {
+        let html = '';
+        switch (cardName) {
+            case 'Бах!':
+                html = `<p>Получай пулю в лоб, <span class="${receiverColor}">${receiverNickname}</span>!</p>`;
+                break;
+            case 'Винчестер':
+            case 'Ярость':
+            case 'Ремингтон':
+            case 'Скофилд':
+            case 'Карабин':
+                html = '<p>Пожалуй, возьму ствол посерьезнее.</p>';
+                break;
+            case 'Промах!':
+                html = '<p>Ха, тебе бы прицел поправить! Мимо!</p>';
+                break;
+            case 'Мустанг':
+                html = '<p>С моей новой лошадкой вам меня не достать!</p>';
+                break;
+            case 'Динамит':
+                html = '<p>Пора сыграть во взрывоопасную игру, ребята.</p>';
+                break;
+            case 'Аппалуза':
+                html = '<p>Теперь вам от меня не уйти, подонки!</p>';
+                break;
+            case 'Тюрьма':
+                html = `<p>Отдохни-ка пока за решеткой, <span class="${receiverColor}">${receiverNickname}</span></p>`;
+                break;
+            case 'Бочка':
+                html = '<p>Теперь вам меня не взять!</p>';
+                break;
+            case 'Дилижанс':
+                html = '<p>Именно то, что было нужно!</p>';
+                break;
+            case 'Уэллс-Фарго':
+                html = '<p>Да у меня тут настоящий джек-пот!</p>';
+                break;
+            case 'Гатлинг':
+                html = '<p>Вот это я понимаю - ствол! Танцуйте, ребята!</p>';
+                break;
+            case 'Салун':
+                html = '<p>Всем выпивки за мой счет!</p>';
+                break;
+            case 'Индейцы':
+                html = '<p>Снова аборигены? Эти ребята так просто не отстанут.</p>';
+                break;
+            case 'Дуэль':
+                html = `<p>Решим наши вопросы прямо здесь и сейчас, <span class="${receiverColor}">${receiverNickname}</span>!</p>`;
+                break;
+            case 'Паника!':
+                html = `<p>У тебя есть то, что мне нужно, <span class="${receiverColor}">${receiverNickname}</span>!</p>`;
+                break;
+            case 'Плутовка Кэт':
+                html = `<p>Эта красотка уже многих облапошила, <span class="${receiverColor}">${receiverNickname}</span>!</p>`;
+                break;
+            case 'Пиво':
+                html = `<p>Что может быть лучше пива в столь жаркий день?</p>`;
+                break;
+            case 'Магазин':
+                html = `<p>Подвоз нового товара? То, что нужно!</p>`;
+                break;
+            case 'Принять урон':
+                html = `<p>Черт, больно же!</p>`;
+                break;
+        }
+
+        return html;
     }
 
     _addDroppable() {

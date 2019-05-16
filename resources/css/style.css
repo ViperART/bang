@@ -245,35 +245,52 @@ img {
 
 .nickname p {
     font-family: 'Old Town', sans-serif;
-    color: #fff;
     text-align: center;
     font-size: 2rem;
     -webkit-filter: drop-shadow(0px 0px 3px #000);
     filter: drop-shadow(0px 0px 3px #000);
 }
 
-.players .player:nth-child(1) .nickname p {
-    color: rgba(0, 174, 255, 0.877);
+.blue {
+    color: rgb(0, 174, 255);
+    text-shadow: #000 1px 1px 0, #000 -1px -1px 0,
+    #000 -1px 1px 0, #000 1px -1px 0;
 }
 
-.player:nth-child(2) .nickname p {
+.red {
     color: rgb(255, 0, 0);
+    text-shadow: #000 1px 1px 0, #000 -1px -1px 0,
+    #000 -1px 1px 0, #000 1px -1px 0;
 }
 
-.player:nth-child(3) .nickname p {
+.yellow {
     color: rgb(238, 255, 0);
+    text-shadow: #000 1px 1px 0, #000 -1px -1px 0,
+    #000 -1px 1px 0, #000 1px -1px 0;
 }
 
-.player:nth-child(4) .nickname p {
+.green {
     color: rgb(43, 255, 0);
+    text-shadow: #000 1px 1px 0, #000 -1px -1px 0,
+    #000 -1px 1px 0, #000 1px -1px 0;
 }
 
-.player:nth-child(5) .nickname p {
+.purple {
     color: rgb(225, 0, 255);
+    text-shadow: #000 1px 1px 0, #000 -1px -1px 0,
+    #000 -1px 1px 0, #000 1px -1px 0;
 }
 
-.player:nth-child(6) .nickname p {
-    color: rgb(0, 255, 136);
+.emerald {
+    color: rgb(56, 255, 202);
+    text-shadow: #000 1px 1px 0, #000 -1px -1px 0,
+    #000 -1px 1px 0, #000 1px -1px 0;
+}
+
+.orange{
+    color: rgb(255, 123, 0);
+    text-shadow: #000 1px 1px 0, #000 -1px -1px 0,
+    #000 -1px 1px 0, #000 1px -1px 0;
 }
 
 /* PLAYERS' PORTAITS SETUP */
@@ -657,14 +674,8 @@ img {
 
 /* END TURN BUTTON SETUP */
 
-#end-turn-button-wrap {
-    margin: 0 0 6rem 8rem;
-    text-align: center;
-    width: 150px;
-    height: 150px;
-}
-
-.end-turn-button {
+.end-turn-button,
+.take-damage-button{
     border: none;
     padding: 0;
     background: url('../images/misc/end_turn.png');
@@ -676,14 +687,16 @@ img {
     position: relative;
 }
 
-.end-turn-button:hover {
+.end-turn-button:hover,
+.take-damage-button:hover {
     border: none;
     cursor: pointer;
     transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform: scale(1.05);
 }
 
-.end-turn-button:active {
+.end-turn-button:active,
+.take-damage-button:active {
     transform: scale(0.95);
 }
 
@@ -781,7 +794,36 @@ img {
     justify-content: center;
 }
 
-/* NOTIFY JS SETUP */
+/* SPEECH CLOUD SETUP */
+
+.speech-cloud {
+    position: relative;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.90);
+    color: #000;
+    text-align: justify;
+    font-size: 2rem;
+    padding: 0.5rem;
+    z-index: 51;
+    max-width: 25rem;
+}
+
+.players .player:nth-child(-n + 3) .speech-cloud {
+    bottom: 3.5rem;
+    left: 9rem;
+}
+
+.players .player:nth-child(n + 4) .speech-cloud {
+    bottom: 3.5rem;
+    right: 9rem;
+}
+
+.local-player .speech-cloud {
+    top: -10rem;
+    right: 15rem;
+}
+
+    /* NOTIFY JS SETUP */
 
 .notifyjs-corner {
     font-size: 1.5rem;

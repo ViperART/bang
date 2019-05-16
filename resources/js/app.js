@@ -105,13 +105,13 @@ $(document).ready(function () {
     // DEBUG ONLY
     $('input.username').val('rand'+(Math.floor(Math.random() * 10000)));
 
-    setTimeout(() => $("#login-button").click(), 500);
+    //setTimeout(() => $("#login-button").click(), 500);
 
     $('#login-button').on('click', () => {
 
         let inputUsername = $('input.username').val();
-        if (inputUsername.trim() === '' || inputUsername.trim().length > 24) {
-            $.notify('Введите имя от 1 до 24 символов', 'error');
+        if (inputUsername.trim() === '' || inputUsername.trim().length > 16) {
+            $.notify('Введите имя от 1 до 16 символов', 'error');
             return;
         }
 
@@ -176,11 +176,11 @@ $(document).ready(function () {
         app.client.send('lobby', 'list', []);
         app.setState(state.LOBBY_LIST);
     });
-    //
-    // $(document).on('click', '.end-turn-button-wrap', function () {
-    //     app.client.send('game', 'turnEnd', []);
-    //     $('#end-turn-button').attr('src', 'resources/images/misc/end_turn_inactive.png')
-    // });
+
+    $(document).on('click', '.end-turn-button-wrap', function () {
+        app.client.send('game', 'turnEnd', {gameId: $(".game-panel").attr('data-id')});
+        // $('#end-turn-button').attr('src', 'resources/images/misc/end_turn_inactive.png')
+    });
 
     $(document).on('click', '#skip', function () {
         app.client.send('game', 'skip', {gameId: $(".game-panel").attr('data-id')});

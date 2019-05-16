@@ -14,4 +14,8 @@ class GameController {
         app.gameState = message.response;
     }
 
+    announce(message) {
+        this.renderer._renderSpeechCloud(message.response.fromPlayer.id, message.response.text)
+    }
+
 }
