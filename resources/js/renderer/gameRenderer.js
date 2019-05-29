@@ -18,6 +18,7 @@ class GameRenderer {
             console.log('DRAWING TABLE WITH CARDS', game.state.cards);
             this._renderStateCards(game.state.cards);
             if (game.state.isEnd) {
+                game.state = null;
                 setTimeout(() =>  {
                     $("#action-interface").fadeOut(300, () => {
                         $("#action-interface").html('').show();
@@ -200,75 +201,6 @@ class GameRenderer {
         }, 2500);
     }
 
-    _createTextForSpeechCloud(initiatorNickname, initiatorColor, receiverNickname, receiverColor, cardName) {
-        let html = '';
-        switch (cardName) {
-            case 'Бах!':
-                html = `<p>Получай пулю в лоб, <span class="${receiverColor}">${receiverNickname}</span>!</p>`;
-                break;
-            case 'Винчестер':
-            case 'Ярость':
-            case 'Ремингтон':
-            case 'Скофилд':
-            case 'Карабин':
-                html = '<p>Пожалуй, возьму ствол посерьезнее.</p>';
-                break;
-            case 'Промах!':
-                html = '<p>Ха, тебе бы прицел поправить! Мимо!</p>';
-                break;
-            case 'Мустанг':
-                html = '<p>С моей новой лошадкой вам меня не достать!</p>';
-                break;
-            case 'Динамит':
-                html = '<p>Пора сыграть во взрывоопасную игру, ребята.</p>';
-                break;
-            case 'Аппалуза':
-                html = '<p>Теперь вам от меня не уйти, подонки!</p>';
-                break;
-            case 'Тюрьма':
-                html = `<p>Отдохни-ка пока за решеткой, <span class="${receiverColor}">${receiverNickname}</span></p>`;
-                break;
-            case 'Бочка':
-                html = '<p>Теперь вам меня не взять!</p>';
-                break;
-            case 'Дилижанс':
-                html = '<p>Именно то, что было нужно!</p>';
-                break;
-            case 'Уэллс-Фарго':
-                html = '<p>Да у меня тут настоящий джек-пот!</p>';
-                break;
-            case 'Гатлинг':
-                html = '<p>Вот это я понимаю - ствол! Танцуйте, ребята!</p>';
-                break;
-            case 'Салун':
-                html = '<p>Всем выпивки за мой счет!</p>';
-                break;
-            case 'Индейцы':
-                html = '<p>Снова аборигены? Эти ребята так просто не отстанут.</p>';
-                break;
-            case 'Дуэль':
-                html = `<p>Решим наши вопросы прямо здесь и сейчас, <span class="${receiverColor}">${receiverNickname}</span>!</p>`;
-                break;
-            case 'Паника!':
-                html = `<p>У тебя есть то, что мне нужно, <span class="${receiverColor}">${receiverNickname}</span>!</p>`;
-                break;
-            case 'Плутовка Кэт':
-                html = `<p>Эта красотка уже многих облапошила, <span class="${receiverColor}">${receiverNickname}</span>!</p>`;
-                break;
-            case 'Пиво':
-                html = `<p>Что может быть лучше пива в столь жаркий день?</p>`;
-                break;
-            case 'Магазин':
-                html = `<p>Подвоз нового товара? То, что нужно!</p>`;
-                break;
-            case 'Принять урон':
-                html = `<p>Черт, больно же!</p>`;
-                break;
-        }
-
-        return html;
-    }
-
     _addDroppable() {
         $('.play-field').droppable({
             // accept: '.local-player-card-wrap',
@@ -300,6 +232,44 @@ class GameRenderer {
 
             out: function() {
                 $('.play-field').css("background-color", "");
+            }
+
+        });
+
+        $('.discard-field').droppable({
+            // accept: '.local-player-card-wrap',
+
+            drop: function(event, ui)
+            {
+                ui.helper.data('discard', true);
+            },
+
+            activate: function () {
+                $('.discard-field').css({
+                    border: '#ff5b5b 1px solid',
+                    borderRadius: '10px'
+                })
+            },
+
+            deactivate: function() {
+                $('.discard-field').css({
+                    border: '',
+                    backgroundColor: ''
+                })
+            },
+
+            over: function() {
+                $('.discard-field').css({
+                    backgroundColor: "rgba(255, 91, 91, 0.27)",
+                    zIndex: 150
+                });
+            },
+
+            out: function() {
+                $('.discard-field').css({
+                    backgroundColor: "",
+                    zIndex: 150
+                });
             }
 
         });

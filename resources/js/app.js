@@ -63,6 +63,7 @@ const app = {
         $('.local-player-card-wrap').draggable({
             start: function(event, ui) {
                 ui.helper.data('thrown', false);
+                ui.helper.data('discard', false);
                 $(this).css({
                     transition: ''
                 })
@@ -70,7 +71,7 @@ const app = {
 
             stop: function (event, ui) {
                 if (ui.helper.data('thrown')) {
-                    if (app.isReceiverRequired($(this).attr('data-name'))) {
+                    if (app.isReceiverRequired($(this).attr('data-name')) && app.gameState.state === null) {
                         app.showPlayerChoose((receiverId) => {
                             app.client.send('game', 'throw', {
                                 gameId: $(".game-panel").attr('data-id'),
@@ -81,6 +82,11 @@ const app = {
                     } else {
                         app.client.send('game', 'throw', {gameId: $(".game-panel").attr('data-id'), cardIndex: $(this).attr('data-index')});
                     }
+                } else if (ui.helper.data('discard')) {
+                    app.client.send('game', 'throwCardToDiscard', {
+                        cardIndex: $(this).attr('data-index'),
+                        gameId: $(".game-panel").attr('data-id')
+                    });
                 }
 
                 $('.local-player-card-wrap').css({
@@ -105,7 +111,7 @@ $(document).ready(function () {
     // DEBUG ONLY
     $('input.username').val('rand'+(Math.floor(Math.random() * 10000)));
 
-    //setTimeout(() => $("#login-button").click(), 500);
+    setTimeout(() => $("#login-button").click(), 500);
 
     $('#login-button').on('click', () => {
 

@@ -672,6 +672,14 @@ img {
     width: 950px;
 }
 
+.discard-field {
+    position: fixed;
+    width: 140px;
+    height: 250px;
+    left: 13.8rem;
+    /*top: 12rem;*/
+}
+
 /* END TURN BUTTON SETUP */
 
 .end-turn-button,
