@@ -116,30 +116,88 @@ class GameRenderer {
     _renderStateCards(cards) {
         $('#action-interface').html('');
 
-        let html = '';
+        let thrownCard = '';
+        let cardAftermath = '';
+        let aftermathWrapStart = '<div id="action-aftermath">';
+        let aftermathWrapEnd = '</div>';
+        let cardIndex = 0;
 
         cards.forEach((card, index) => {
             if (index === 0) {
-                html +=
+                thrownCard +=
                     `
                     <div class="thrown-card-wrap">
                         <img id="thrown-card" src="${this.getCardImagePath(card.suit, card.rank, card.type, false, card.actionType)}" alt="">
                     </div>
+                    <p id="divider">></p>
                     `
             } else {
-                html +=
+                cardAftermath +=
                     `
-                    <p id="divider">></p>
                     <div class="card-aftermath-wrap">
-                        <img class="card-aftermath" src="${this.getCardImagePath(card.suit, card.rank, card.type, false, card.actionType)}" alt="">
+                        <img class="card-aftermath" data-index="${cardIndex}" src="${this.getCardImagePath(card.suit, card.rank, card.type, false, card.actionType)}" alt="">
                     </div>
-                    `
+                    `;
+
+                cardIndex++;
             }
         });
+
+        let html = thrownCard + aftermathWrapStart + cardAftermath + aftermathWrapEnd;
 
         $('#action-interface').html(html);
     }
 
+    _renderCardsSelection(receiverId, cardIndex, card, cardsCount, weapon, buffs) {
+
+        let thrownCard = '';
+        let cardAftermath = '';
+        let aftermathWrapStart = '<div id="action-aftermath">';
+        let aftermathWrapEnd = '</div>';
+        let html = '';
+        let index = 0;
+
+        thrownCard +=
+            `
+            <div class="thrown-card-wrap">
+                <img id="thrown-card" data-receiver-id="${receiverId}" data-index="${cardIndex}" src="${this.getCardImagePath(card.suit, card.rank, card.type, false, card.actionType)}" alt="">
+            </div>
+            <p id="divider">></p>
+            `;
+
+        for (let i = 0; i < cardsCount; i++) {
+            cardAftermath +=
+                `
+                <div class="card-aftermath-wrap">
+                    <img class="card-aftermath" data-index="${index}" src="./resources/images/cards/full/card_back.png" alt="">
+                </div>
+                `;
+            index++
+        }
+
+        buffs.forEach((card) => {
+            cardAftermath +=
+                `
+                <div class="card-aftermath-wrap">
+                    <img class="card-aftermath" data-index="${index}" src="${this.getCardImagePath(card.suit, card.rank, card.type, false)}" alt="">
+                </div>
+                `
+            index++;
+        });
+
+        if (weapon.rank !== 1) {
+            cardAftermath +=
+                `
+            <div class="card-aftermath-wrap">
+                <img class="card-aftermath" data-index="${index}" src="${this.getCardImagePath(weapon.suit, weapon.rank, weapon.type, false)}" alt="">
+            </div>
+            `;
+        }
+
+        html += thrownCard + aftermathWrapStart + cardAftermath + aftermathWrapEnd;
+
+        $('#action-interface').html(html);
+    }
 
     _renderHP(hp) {
         let html = '';

@@ -59,9 +59,35 @@ const app = {
         return app.currentState === state.LOBBY_LIST;
     },
 
+    showCardTakeTable: (receiverId, cardIndex) => {
+        let targetPlayer = null;
+        let localPlayer = null;
+
+        app.gameState.players.forEach((player) => {
+            if (player.id === receiverId) {
+                targetPlayer = player;
+            }
+        });
+
+        app.gameState.players.forEach((player) => {
+            if (player.cards) {
+                localPlayer = player;
+            }
+        });
+
+        app.controllers.game.renderer._renderCardsSelection(
+            receiverId,
+            cardIndex,
+            localPlayer.cards[cardIndex],
+            targetPlayer.cardsCount,
+            targetPlayer.weapon,
+            targetPlayer.buffs
+        );
+    },
+
     makeDraggable() {
         $('.local-player-card-wrap').draggable({
-            start: function(event, ui) {
+            start: function (event, ui) {
                 ui.helper.data('thrown', false);
                 ui.helper.data('discard', false);
                 $(this).css({
@@ -71,16 +97,34 @@ const app = {
 
             stop: function (event, ui) {
                 if (ui.helper.data('thrown')) {
-                    if (app.isReceiverRequired($(this).attr('data-name')) && app.gameState.state === null) {
+                    let cardName = $(this).attr('data-name');
+                    let cardIndex = $(this).attr('data-index');
+                    if (app.isReceiverRequired(cardName) && app.gameState.state === null) {
+
                         app.showPlayerChoose((receiverId) => {
-                            app.client.send('game', 'throw', {
-                                gameId: $(".game-panel").attr('data-id'),
-                                cardIndex: $(this).attr('data-index'),
-                                receiverPlayerId: receiverId
-                            });
+                            if (cardName === 'Плутовка Кэт' || cardName === 'Паника!') {
+                                // set app.inWithdrawState = true
+                                if (cardName === 'Паника!' && app.gameState.defenseDistances[receiverId] !== 1) {
+                                    $.notify("Вы не достаете до этого игрока.", "error");
+                                } else {
+                                    app.showCardTakeTable(receiverId, cardIndex);
+                                    this.remove();
+                                }
+                            } else {
+                                app.client.send('game', 'throw', {
+                                    gameId: $(".game-panel").attr('data-id'),
+                                    cardIndex: cardIndex,
+                                    receiverPlayerId: receiverId
+                                });
+                            }
                         });
+
+
                     } else {
-                        app.client.send('game', 'throw', {gameId: $(".game-panel").attr('data-id'), cardIndex: $(this).attr('data-index')});
+                        app.client.send('game', 'throw', {
+                            gameId: $(".game-panel").attr('data-id'),
+                            cardIndex: cardIndex
+                        });
                     }
                 } else if (ui.helper.data('discard')) {
                     app.client.send('game', 'throwCardToDiscard', {
@@ -109,7 +153,7 @@ const app = {
 $(document).ready(function () {
 
     // DEBUG ONLY
-    $('input.username').val('rand'+(Math.floor(Math.random() * 10000)));
+    $('input.username').val('rand' + (Math.floor(Math.random() * 10000)));
 
     setTimeout(() => $("#login-button").click(), 500);
 
@@ -140,7 +184,7 @@ $(document).ready(function () {
     });
 
 
-    $(document).on('click', '.join-lobby', function() {
+    $(document).on('click', '.join-lobby', function () {
         app.client.send('lobby', 'join', {id: $(this).data('id')});
         app.setState(state.LOBBY_JOINED);
     });
@@ -167,15 +211,15 @@ $(document).ready(function () {
         app.setState(state.MAIN_MENU)
     });
 
-    $('#back-from-lobby').on('click', function() {
+    $('#back-from-lobby').on('click', function () {
         app.client.send('lobby', 'leave', {id: $(this).attr('data-id')});
         app.setState(state.MAIN_MENU);
     });
 
     $('.card-from-shop').on('click', function () {
-       $(this).remove();
-       $('#local-player-hand').append(cardMarkup);
-       app.makeDraggable();
+        $(this).remove();
+        $('#local-player-hand').append(cardMarkup);
+        app.makeDraggable();
     });
 
     $(document).on('click', '#reload', function () {
@@ -190,6 +234,25 @@ $(document).ready(function () {
 
     $(document).on('click', '#skip', function () {
         app.client.send('game', 'skip', {gameId: $(".game-panel").attr('data-id')});
+    });
+
+    $(document).on('click', '.card-aftermath', function () {
+        if (app.gameState.state === null) {
+            app.client.send('game', 'withdraw', {
+                gameId: $(".game-panel").attr('data-id'),
+                withdrawCardIndex: $(this).attr('data-index'),
+                thrownCardIndex: $('#thrown-card').attr('data-index'),
+                receiverPlayerId: $('#thrown-card').attr('data-receiver-id')
+            });
+            $('#action-interface').html('');
+        } else if (app.gameState.state.type === 4) {
+            // app.client.send('game', 'takeCardFromShop')
+            app.client.send('game', 'takeCardFromShop', {
+                gameId: $(".game-panel").attr('data-id'),
+                withdrawCardIndex: $(this).attr('data-index')
+            });
+
+        }
     });
 
 });

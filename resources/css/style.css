@@ -530,7 +530,7 @@ img {
 
 #local-player-hand {
     display: grid;
-    grid-template-columns: repeat(10, 85px);
+    grid-template-columns: repeat(11, 85px);
     margin-bottom: 2rem;
 }
 
@@ -599,7 +599,8 @@ img {
 }
 
 .local-player-card-wrap:hover,
-.card-from-shop-wrap:hover {
+.card-from-shop-wrap:hover,
+.card-aftermath-wrap:hover {
     cursor: pointer;
     z-index: 22;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -744,15 +745,22 @@ img {
 
 #thrown-card,
 .card-aftermath {
-    max-width: 160px;
-    max-height: 290px;
+    width: 160px;
+    height: 254px;
     z-index: 100;
 }
 
 #action-aftermath {
     display: grid;
-    grid-template-columns: repeat(8, 90px);
+    grid-template-columns: repeat(14, 90px);
     z-index: 150;
+}
+
+.thrown-card-wrap,
+#divider,
+#action-aftermath {
+    position: relative;
+    left: 13rem;
 }
 
 /* RANGE TRACKER SETUP */
