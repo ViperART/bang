@@ -683,6 +683,10 @@ img {
 
 /* END TURN BUTTON SETUP */
 
+.end-turn-button-wrap {
+    margin-bottom: 2rem;
+}
+
 .end-turn-button,
 .take-damage-button{
     border: none;
@@ -694,6 +698,7 @@ img {
     height: 150px;
     transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
+    margin-right: 2rem;
 }
 
 .end-turn-button:hover,

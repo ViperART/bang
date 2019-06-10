@@ -1,7 +1,7 @@
 class GameRenderer {
 
     drawGameStart(game) {
-        this._drawPlayers(game.players, game.currentPlayerId);
+        this._drawPlayers(game.players, game.currentPlayerId, game.state);
         this._renderPacks(game.cardsLeft, game.cardsUsed);
         this._addDroppable();
         app.makeDraggable();
@@ -12,10 +12,9 @@ class GameRenderer {
     }
 
     drawGameChange(game) {
-        this._drawPlayers(game.players, game.currentPlayerId);
+        this._drawPlayers(game.players, game.currentPlayerId, game.state);
         this._renderPacks(game.cardsLeft, game.cardsUsed);
         if (game.state !== null) {
-            console.log('DRAWING TABLE WITH CARDS', game.state.cards);
             this._renderStateCards(game.state.cards);
             if (game.state.isEnd) {
                 game.state = null;
@@ -44,21 +43,22 @@ class GameRenderer {
         return localPlayer;
     }
 
-    _drawPlayers(players, currentPlayerId) {
+    _drawPlayers(players, currentPlayerId, state) {
         let localPlayer = this._findLocalPlayer(players);
         $("#players_list").html('');
         $("#local_player_hub").html('');
         for (let i in players) {
             if (players[i].cards !== undefined) {
-                $("#local_player_hub").append(this._getPlayerTemplate(players[i], currentPlayerId, localPlayer, true));
+                $("#local_player_hub").append(this._getPlayerTemplate(players[i], currentPlayerId, localPlayer, true, state));
             } else {
-                $("#players_list").append(this._getPlayerTemplate(players[i], currentPlayerId, localPlayer, false));
+                $("#players_list").append(this._getPlayerTemplate(players[i], currentPlayerId, localPlayer, false, state));
             }
         }
     }
 
-    _getPlayerTemplate(player, currentPlayerId, localPlayer, isLocalPlayer) {
+    _getPlayerTemplate(player, currentPlayerId, localPlayer, isLocalPlayer, state) {
         let currentPlayerClass = currentPlayerId === player.id ? 'player-active' : '';
+        let canReceiveDamage = currentPlayerId === player.id && state ? !state.isEnd && state.type !== 4 : false;
         return `
             <div class="player ${isLocalPlayer ? 'local-player' : ''}" data-client-id="${player.id}">
                 ${isLocalPlayer ? '<div class="local-player-role"><p>'+this._resolveRoleName(player.role)+'</p></div>' : ''}
@@ -91,9 +91,8 @@ class GameRenderer {
                 <div class="speech-cloud" style="display: none"><p></p></div>
             </div>
                 ${isLocalPlayer ? '<div id="local-player-hand">'+this._renderCards(player.cards)+'</div>' : ''}
-                ${isLocalPlayer ? '<div class="take-damage-button-wrap"><img id="skip" class="take-damage-button" src="./resources/images/misc/take_damage.png" alt="">' : ''}
+                ${canReceiveDamage ? isLocalPlayer ? '<div class="take-damage-button-wrap"><img id="skip" class="take-damage-button" src="./resources/images/misc/take_damage.png" alt="">' : '' : ''}
                 ${isLocalPlayer ? '<div class="end-turn-button-wrap"><img class="end-turn-button" src="./resources/images/misc/end_turn.png" alt="">' : ''}
-                
         `;
     }
 
